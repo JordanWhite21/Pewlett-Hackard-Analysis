@@ -63,3 +63,21 @@ GROUP BY title
 ORDER BY COUNT(title) DESC;
 
 SELECT * FROM retiring_titles;
+
+SELECT Distinct On(employees.emp_no)employees.emp_no,
+employees.first_name,
+employees.last_name,
+employees.birth_date,
+dept_emp.from_date,
+dept_emp.to_date,
+titles.title
+INTO mentorship_eligibliltiy
+FROM employees
+Left outer Join dept_emp
+on (employees.emp_no = dept_emp.emp_no)
+Left outer Join titles
+on (employees.emp_no = titles.emp_no)
+WHERE (employees.birth_date BETWEEN '1965-01-01' AND '1965-12-31')
+ORDER by employees.emp_no;
+
+SELECT * FROM mentorship_eligibliltiy;
